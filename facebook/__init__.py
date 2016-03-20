@@ -278,7 +278,10 @@ class GraphAPI(object):
 
         if result and isinstance(result, dict) and result.get("error"):
             print(result)
-            raise GraphAPIError(result)
+            if(result['error']['code'] == 2):
+                self.request(path,args,post_args,files,method)
+            else:
+                raise GraphAPIError(result)
         return result
 
     def fql(self, query):
