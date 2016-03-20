@@ -241,6 +241,8 @@ class GraphAPI(object):
                 args["access_token"] = self.access_token
 
         try:
+            print(path)
+            print(args)
             response = requests.request(method or "GET",
                                         FACEBOOK_GRAPH_URL + path,
                                         timeout=self.timeout,
