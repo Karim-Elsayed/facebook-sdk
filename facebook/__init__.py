@@ -271,14 +271,18 @@ class GraphAPI(object):
             else:
                 raise GraphAPIError(response.json())
         else:
-            print(headers['content-type'])
-            print(response.text)
-            print(response)
-            raise GraphAPIError('Maintype was not text, image, or querystring')
+            print(result)
+            if(result["error"]["code"] == 1):
+                print("Retring")
+                self.request(path,args,post_args,files,method)
+            else:
+                raise GraphAPIError(result)
+            #raise GraphAPIError('Maintype was not text, image, or querystring')
 
         if result and isinstance(result, dict) and result.get("error"):
             print(result)
             if(result['error']['code'] == 2):
+                print("Retring")
                 self.request(path,args,post_args,files,method)
             else:
                 raise GraphAPIError(result)
