@@ -269,6 +269,9 @@ class GraphAPI(object):
             else:
                 raise GraphAPIError(response.json())
         else:
+            print(headers['content-type'])
+            print(response.text)
+            print(response)
             raise GraphAPIError('Maintype was not text, image, or querystring')
 
         if result and isinstance(result, dict) and result.get("error"):
