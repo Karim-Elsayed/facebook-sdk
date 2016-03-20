@@ -241,8 +241,6 @@ class GraphAPI(object):
                 args["access_token"] = self.access_token
 
         try:
-            print(path)
-            print(args)
             response = requests.request(method or "GET",
                                         FACEBOOK_GRAPH_URL + path,
                                         timeout=self.timeout,
@@ -271,16 +269,10 @@ class GraphAPI(object):
             else:
                 raise GraphAPIError(response.json())
         else:
-            self.request(path,args,post_args,files,method)
-            #raise GraphAPIError('Maintype was not text, image, or querystring')
+            raise GraphAPIError('Maintype was not text, image, or querystring')
 
         if result and isinstance(result, dict) and result.get("error"):
-            print(result)
-            if(result['error']['code'] == 2):
-                print("Retring")
-                self.request(path,args,post_args,files,method)
-            else:
-                raise GraphAPIError(result)
+            raise GraphAPIError(result)
         return result
 
     def fql(self, query):
